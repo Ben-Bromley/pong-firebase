@@ -12,17 +12,17 @@ const Home: NextPage = () => {
       </Head>
       <header>
         <nav className='p-4 flex justify-end'>
-            <Link href="/login"><a className='p-2 border-2 px-6 rounded transition-all hover:text-gray-400 hover:border-gray-400'>
+            <Link href="/login"><a className='p-2 font-bold border-2 px-6 rounded transition-all hover:text-gray-400 hover:border-gray-400'>
               Login
             </a></Link>
         </nav>
       </header>
-      <main className='flex justify-center p-8'>
-        <div className='flex flex-col justify-center'>
-          <h1 className='text-4xl font-medium text-center mb-4'>Welcome to Pong!</h1>
-          <p className='text-center'>Ping Pong Leaderboard tracking for cool offices like <a href="https://www.reviews.io">REVIEWS.io</a></p>
+      <main className='flex justify-center items-center p-8 h-screen'>
+        <div className='flex flex-col justify-center items-center max-w-lg mx-auto'>
+          <h1 className='text-4xl md:text-6xl font-bold text-center mb-4'>Welcome to Pong!</h1>
+          <p className='text-center md:text-2xl text-gray-400 max-w-md'>Ping Pong Leaderboard tracking for cool offices like <a href="https://www.reviews.io">REVIEWS.io</a></p>
           <Link href="/register">
-            <a className='my-4 text-center py-4 rounded bg-blue-800 hover:bg-blue-900 transition-all w-56 mx-auto'>Get Started</a>
+            <a className='my-4 text-center font-bold py-4 rounded bg-blue-800 hover:bg-blue-900 transition-all w-56 mx-auto'>Get Started</a>
           </Link>
         </div>
       </main>
