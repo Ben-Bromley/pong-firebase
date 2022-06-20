@@ -2,7 +2,7 @@
 
 [![](https://img.shields.io/badge/Ben--Bromley/pong-v0.1.0-4a8af0?logo=github)](https://github.com/Ben-Bromley/pong)
 
-Track you games and scores with fellow players! See who is at the time of their game, and who is deep in the gutter! 
+Track you games and scores with fellow players! See who is at the top of their game, and who is deep in the gutter! 
 
 Watch this space 👀
 
