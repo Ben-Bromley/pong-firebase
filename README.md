@@ -1,3 +1,14 @@
+# PONG! 🏓
+
+[![](https://img.shields.io/badge/Ben--Bromley/pong-v0.1.0-4a8af0?logo=github)](https://github.com/Ben-Bromley/pong)
+
+Track you games and scores with fellow players! See who is at the time of their game, and who is deep in the gutter! 
+
+Watch this space 👀
+
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
