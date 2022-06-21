@@ -28,12 +28,12 @@ const Register: NextPage = () => {
     const newUser = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      password: formData.get('password') as string
+      password: formData.get('password') as string,
+      passwordConfirm: formData.get('confirmPassword') as string
     }
 
-    const createdUser = await createUserWithDetails(newUser);
-    console.log(createdUser);
-    if (createdUser) {
+    const res = await createUserWithDetails(newUser);
+    if (res?.message === "success") {
       router.push('/dashboard');
     }
   };
