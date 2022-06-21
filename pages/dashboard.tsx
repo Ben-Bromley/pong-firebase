@@ -6,11 +6,11 @@ import { useAuth } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 
 const Login: NextPage = () => {
-  const { user, logout } = useAuth()
+  const { user, loading, logout } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       router.push('/login');
     }
   }, [user]);
