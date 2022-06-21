@@ -17,7 +17,7 @@ const Home: NextPage = () => {
             </a></Link>
         </nav>
       </header>
-      <main className='flex justify-center items-center p-8 h-screen'>
+      <main className='flex justify-center items-center p-8 h-[80vh]'>
         <div className='flex flex-col justify-center items-center max-w-lg mx-auto'>
           <h1 className='text-4xl md:text-6xl font-bold text-center mb-4'>Welcome to Pong!</h1>
           <p className='text-center md:text-2xl text-gray-400 max-w-md'>Ping Pong Leaderboard tracking for cool offices like <a href="https://www.reviews.io">REVIEWS.io</a></p>
