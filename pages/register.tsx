@@ -52,7 +52,7 @@ const Register: NextPage = () => {
               <input type="password" name="confirmPassword" placeholder="Confirm Password" required className='text-gray-700 w-full p-3 rounded-md border-2 border-gray-200' />
             </div>
             <div className='flex flex-col justify-center'>
-              <input type="submit" value='Register' className='my-4 text-center py-4 rounded-sm bg-blue-800 hover:bg-blue-900 w-full mx-auto' />
+              <input type="submit" value='Register' className='my-4 text-center font-bold py-4 rounded-sm bg-blue-800 hover:bg-blue-900 w-full mx-auto' />
               <p className='text-center'>Already have an account?<Link href="/login"><a className='ml-2 text-blue-500 hover:text-blue-700'>Login</a></Link></p>
               <ReturnToHome />
             </div>

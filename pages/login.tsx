@@ -39,7 +39,7 @@ const Login: NextPage = () => {
               <input type="password" name="password" placeholder="Password" required className='text-gray-700 w-full p-3 rounded-md border-2 border-gray-200' />
             </div>
             <div className='flex flex-col justify-center'>
-              <input type="submit" value='Login' className='my-4 text-center py-4 rounded-sm bg-blue-800 hover:bg-blue-900 transition-all w-full mx-auto' />
+              <input type="submit" value='Login' className='my-4 text-center font-bold py-4 rounded-sm bg-blue-800 hover:bg-blue-900 transition-all w-full mx-auto' />
               <p className='text-center'>Already have an account?<Link href="/register"><a className='ml-2 text-blue-500 hover:text-blue-700'>Register</a></Link></p>
               <ReturnToHome />
             </div>
