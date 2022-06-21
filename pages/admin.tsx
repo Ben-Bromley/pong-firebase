@@ -13,7 +13,7 @@ const Login: NextPage = () => {
     if (!loading && !user) {
       router.push('/login');
     }
-  }, [user]);
+  }, [user, loading]);
 
   return (
     <div className='bg-main h-screen'>

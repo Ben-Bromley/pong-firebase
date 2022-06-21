@@ -10,10 +10,12 @@ const Login: NextPage = () => {
   const router = useRouter()
 
   useEffect(() => {
+    console.log(loading)
+    console.log(user)
     if (!loading && !user) {
       router.push('/login');
     }
-  }, [user]);
+  }, [user, loading]);
 
   return (
     <div className='bg-main h-screen'>
