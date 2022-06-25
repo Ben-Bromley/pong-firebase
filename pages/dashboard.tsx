@@ -10,7 +10,6 @@ const Login: NextPage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log('userData', userData)
     if (!loading && !user) {
       router.push('/login');
     }
@@ -21,7 +20,7 @@ const Login: NextPage = () => {
       <Head><title>Pong | Dashboard</title></Head>
       <header>
         <nav className='flex flex-col h-full sm:flex-row justify-between items-center p-8'>
-          <h1>Dashboard for <strong>{user?.email}</strong></h1>
+          <h1>Dashboard for <strong>{userData?.email || "..."}</strong></h1>
           <div className='flex mt-4 sm:mt-0 space-x-4'>
             <button className='p-2 border-2 font-bold border-blue-800 text-center px-6 rounded bg-blue-800 hover:bg-blue-900 hover:border-blue-900 transition-all'>New Game</button>
             <button className="p-2 border-2 font-bold px-6 rounded transition-all hover:text-gray-400 hover:border-gray-400" onClick={logout}>Logout</button>
