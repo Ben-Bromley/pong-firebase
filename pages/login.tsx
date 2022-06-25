@@ -29,7 +29,7 @@ const Login: NextPage = () => {
 
   return (
     <div className='bg-main h-screen'>
-      <Head><title>Pong | Register</title></Head>
+      <Head><title>Pong | Login</title></Head>
       <main className='flex justify-center items-center p-8 min-h-96 h-4/5'>
         <section className='flex flex-col w-full max-w-xs mx-auto'>
           <h1 className='text-4xl font-medium text-center mb-4'>Let's Go! 🏓</h1>
