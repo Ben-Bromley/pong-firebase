@@ -10,7 +10,7 @@ export default async function handler(
 ) {
 
   // working test
-  //   const response = await db.collection('organisations').add({
+  //   const response = await db.collection('teams').add({
   //       name: 'test1',
   //       createdAt: new Date().toISOString()
   //   });
