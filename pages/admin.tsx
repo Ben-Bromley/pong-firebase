@@ -13,6 +13,7 @@ const Login: NextPage = () => {
     if (!loading && !user) {
       router.push('/login');
     }
+    if (!loading && user && user.email !== 'ben@benbrom.com') router.push('/dashboard');
   }, [user, loading]);
 
   return (
