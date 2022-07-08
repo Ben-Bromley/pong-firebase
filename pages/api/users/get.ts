@@ -16,17 +16,6 @@ export default async function handler(
     let response: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> | FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData> | undefined;
     let returnData: FirebaseFirestore.DocumentData | null
 
-    // put uid first as it gets the doc slightly differently 
-    if (uid) {
-        // get user by uid, if empty, return 404, if not empty, return user data
-        response = await db.collection('users').doc(uid).get();
-        if (!response.exists) { 
-            return res.status(404).json({ status: 404, message: "User not found" }); 
-        }
-        returnData = response.data() || null;
-        return res.status(200).json({ status: 200, message: "success", data: returnData }); 
-    }
-
     if (!team && !email && !uid) {
         return res.status(400).json({ status: 400, message: "Missing user identifier (uid, email, or team)" });
     }
@@ -37,7 +26,8 @@ export default async function handler(
     // set collection
     userCollection = db.collection("users")
     // add queries to collection based on params
-    if (team) query = userCollection.where("team", "==", team);
+    if (uid)   query = userCollection.where("uid", "==", uid);
+    if (team)  query = userCollection.where("team", "==", team);
     if (email) query = userCollection.where('email', '==', email);
     response = await query?.get();
 
