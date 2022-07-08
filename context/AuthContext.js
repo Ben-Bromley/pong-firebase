@@ -17,18 +17,19 @@ const fetchUserData = async (uid) => {
 	return response.data;
 };
 
-const initUserData = async (uid, addData, name) => {
-	console.log("Init data for: ", uid);
+const initUserData = async (user) => {
+	console.log("Init data for: ", user.uid);
 	let response = await fetch("/api/users/create", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
-			uid: uid,
-			email: addData.email,
-			name: name,
-			// organisation: addData.organisation
+			uid: user.uid,
+			email: user.email,
+			name: user.name,
+			team: user.team,
 		}),
 	});
+	// TODO: create new team if team doesn't exist
 	let data = await response.json();
 	return data;
 };
@@ -49,9 +50,7 @@ export const AuthContextProvider = ({ children }) => {
 		},
 	});
 
-	const loginWithDetails = (email, password) => {
-		return signInWithEmailAndPassword(auth, email, password);
-	};
+	const loginWithDetails = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
 	const logout = () => signOut(auth);
 
@@ -67,8 +66,9 @@ export const AuthContextProvider = ({ children }) => {
 				const newUser = userCredential.user;
 				try {
 					// if new user is created, add to firebase
-					await initUserData(newUser.uid, newUser, details?.name);
+					await initUserData({uid: newUser.uid, ...details});
 				} catch (e) {
+					console.log("Error initialising user data: ", e);
 					// remove user if data not added to firestore
 					deleteUser(auth.currentUser);
 				}
