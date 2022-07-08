@@ -8,31 +8,39 @@ export default async function handler(
     if (req.method === "GET") {
         const email = req.query.email as string;
         const uid = req.query.uid as string;
+        const team = req.query.team as string;
 
-        let response;
+        let response: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> | FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData>
+        let returnData: FirebaseFirestore.DocumentData | undefined
 
-        if (email) {
+        if (team) {
+            response = await db.collection("users").where("team", "==", team).get();
+            if (response.empty) {
+                res.status(404).json({ status: 404, message: "No users found" })
+            }
+            returnData = response.docs[0].data()
+        } else if (email) {
             // get user by email. if empty, return 404, otherwise return user data
             response = await db.collection('users').where('email', '==', email).get();
             if (response.empty) {
-                res.status(404).json({ status: 404, message: "User not found" });
+                return res.status(404).json({ status: 404, message: "User not found" });
             }
-            response = response.docs[0].data();
+            returnData = response.docs[0].data();
         } else if (uid) {
             // get user by uid, if empty, return 404, if not empty, return user data
             response = await db.collection('users').doc(uid).get();
             if (!response.exists) {
-                res.status(404).json({ status: 404, message: "User not found" });
+                return res.status(404).json({ status: 404, message: "User not found" });
             }
-            response = response.data();
+            returnData = response.data();
         } else {
             // return error if user identifier is not provided
-            res.status(400).json({ status: 400, message: "Missing user identifier (uid or email)" });
+            return res.status(400).json({ status: 400, message: "Missing user identifier (uid or email)" });
         }
 
-        res.status(200).json({ status: 200, message: "success", data: response });
+        return res.status(200).json({ status: 200, message: "success", data: returnData });
 
     } else {
-        res.status(405).json({ status: 405, message: "Method not allowed" });
+        return res.status(405).json({ status: 405, message: "Method not allowed" });
     }
 }
