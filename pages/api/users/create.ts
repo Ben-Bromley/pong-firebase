@@ -15,6 +15,7 @@ export default async function handler(
 
         // add user to firestore
         const newUserDocument = await db.collection('users').doc(req.body.uid).set({
+            uid: req.body.uid,
             email: req.body.email as string,
             name: req.body.name as string,
             createdAt: new Date().toISOString(),

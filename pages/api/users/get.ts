@@ -16,7 +16,7 @@ export default async function handler(
     let response: FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData> | FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData> | undefined;
     let returnData: FirebaseFirestore.DocumentData | null
 
-    // put uid first as it gets the doc slightly differently (TODO: add uid as attribute)
+    // put uid first as it gets the doc slightly differently 
     if (uid) {
         // get user by uid, if empty, return 404, if not empty, return user data
         response = await db.collection('users').doc(uid).get();
