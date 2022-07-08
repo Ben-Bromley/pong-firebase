@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 
 const Login: NextPage = () => {
+  // @ts-ignore
   const { user, userData, loading, logout } = useAuth()
   const router = useRouter()
 
