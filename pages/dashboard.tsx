@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useRouter } from 'next/router'
 
-const Login: NextPage = () => {
+const Dashboard: NextPage = () => {
   // @ts-ignore
   const { user, userData, loading, logout, teamMembers } = useAuth()
   const router = useRouter()
   const [teamMemberHTML, setTeamMemberHTML] = useState(null);
+  const [teamGameHTML, setTeamGameHTML] = useState(null);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -21,6 +22,20 @@ const Login: NextPage = () => {
         return <li key={index} className="bg-gray-500 p-4">{member.name}</li>
       }))
     }
+
+    // fetch asynchronous games history data
+    const getAsyncGameData = async () => {
+      if (userData) {
+        let gameRequest = await fetch('/api/games/get?team=' + userData.team)
+        let gameData = await gameRequest.json();
+        setTeamGameHTML(gameData.data.map((game, index)=>{
+          return <li key={`game-${index}`} className="bg-gray-500 p-4">
+            {game.player_one_score} - {game.player_two_score}
+          </li>
+        }))
+      }
+    }
+    getAsyncGameData();
   }, [user, loading]);
 
   return (
@@ -38,15 +53,18 @@ const Login: NextPage = () => {
       <main className='md:h-4/5'>
         <section className='px-6 flex flex-wrap h-full'>
           <section className='m-2 basis-72 bg-gray-700 rounded w-1/2 grow'>
-            <h2 className='p-4'>Leaderboard</h2>
+            <h2 className='m-4'>Leaderboard</h2>
             <ul>
               {teamMemberHTML}
             </ul>
             <p className='text-center text-sm text-gray-400 p-2 my-2'>Add More Team Members</p>
           </section>
-          <section className='m-2 basis-72 bg-gray-700 rounded w-1/2 grow p-4'>
-            <h2>Match History</h2>
-            <p className='text-gray-400'>No Matches</p>
+          <section className='m-2 basis-72 bg-gray-700 rounded w-1/2 grow'>
+            <h2 className='m-4'>Match History</h2>
+            <ul>
+              {teamGameHTML}
+            </ul>
+            <p className='text-gray-400 m-4'>No Matches</p>
           </section>
         </section>
       </main>
@@ -55,4 +73,4 @@ const Login: NextPage = () => {
   )
 }
 
-export default Login;
+export default Dashboard;
