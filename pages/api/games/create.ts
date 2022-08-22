@@ -26,7 +26,8 @@ export default async function handler(
             player_two_uid: p2UID,
             player_one_score: req.body.p1Score,
             player_two_score: req.body.p2Score,
-            team: req.body.team
+            team: req.body.team,
+            createdAt: new Date().toISOString(),
         }).catch((error) => {
             // return error if occurs
             return res.status(500).json({status: 500, message: error.message});
