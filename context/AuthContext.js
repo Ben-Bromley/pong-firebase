@@ -1,9 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { signOut, deleteUser, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import {
-	useAuthState,
-	useSignInWithEmailAndPassword,
-} from "react-firebase-hooks/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import { collection, query, where, getDoc, doc } from "firebase/firestore";
 
@@ -11,9 +8,14 @@ import { collection, query, where, getDoc, doc } from "firebase/firestore";
 const AuthContext = createContext({});
 
 const fetchUserData = async (uid) => {
-	console.log("Fetching: ", uid);
 	let response = await fetch("/api/users/get?uid=" + uid);
 	response = await response.json();
+	return response.data[0];
+};
+
+const fetchTeamMembers = async (team) => {
+	console.log("Fetching team members for team: ", team);
+	let response = await (await fetch("/api/users/get?team=" + team)).json();
 	return response.data;
 };
 
@@ -36,6 +38,7 @@ const initUserData = async (user) => {
 
 export const AuthContextProvider = ({ children }) => {
 	const [userData, setUserData] = useState(null);
+	const [teamMembers, setTeamMembers] = useState(null);
 
 	const [user, loading, error] = useAuthState(auth, {
 		onUserChanged: async (user) => {
@@ -43,6 +46,8 @@ export const AuthContextProvider = ({ children }) => {
 				// get user data and set in state
 				let data = await fetchUserData(user.uid);
 				setUserData(data);
+				let teamData = await fetchTeamMembers(data.team);
+				setTeamMembers(teamData);
 			} else {
 				// clear user data
 				setUserData(null);
@@ -90,6 +95,7 @@ export const AuthContextProvider = ({ children }) => {
 				logout,
 				user,
 				userData,
+				teamMembers,
 				loading,
 				createUserWithDetails,
 			}}
