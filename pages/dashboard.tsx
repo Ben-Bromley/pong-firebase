@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useAuth } from '../context/AuthContext'
+import useFetchGameHistory from '../hooks/useFetchGameHistory';
 import { useRouter } from 'next/router'
 
 const Dashboard: NextPage = () => {
@@ -11,6 +12,7 @@ const Dashboard: NextPage = () => {
   const router = useRouter()
   const [teamMemberHTML, setTeamMemberHTML] = useState(null);
   const [teamGameHTML, setTeamGameHTML] = useState(null);
+  const [gameHistory, fetchGameHistory] = useFetchGameHistory();
 
   useEffect(() => {
     if (!loading && !user) {
@@ -24,19 +26,23 @@ const Dashboard: NextPage = () => {
     }
 
     // fetch asynchronous games history data
-    const getAsyncGameData = async () => {
-      if (userData) {
-        let gameRequest = await fetch('/api/games/get?team=' + userData.team)
-        let gameData = await gameRequest.json();
-        setTeamGameHTML(gameData.data.map((game, index)=>{
-          return <li key={`game-${index}`} className="bg-gray-500 p-4">
-            {game.player_one_score} - {game.player_two_score}
-          </li>
-        }))
-      }
+    if(!gameHistory && userData?.team) {
+      console.log("fetching game data")
+      fetchGameHistory(userData.team);
     }
-    getAsyncGameData();
-  }, [user, loading]);
+
+    if (gameHistory) {
+      console.log("GAME HISTORY: ", gameHistory)
+      setTeamGameHTML(gameHistory.map((game, index)=>{
+        return <li key={`game-${index}`} className="bg-gray-500 p-4">
+          {game.player_one_score} - {game.player_two_score}
+        </li>
+      }))
+    }
+
+  }, [user, loading, userData, gameHistory]);
+  
+
 
   return (
     <div className='bg-main h-screen'>
